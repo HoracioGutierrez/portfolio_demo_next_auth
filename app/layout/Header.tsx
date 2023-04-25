@@ -11,22 +11,22 @@ export default function Header() {
   const router = useRouter()
 
   useEffect(() => {
-    console.log("effect")
-    console.log(user)
     if (!user) {
       router.push('/sign-in')
     }
   }, [user])
 
   return (
-    <header>
-      <h1>Header</h1>
-      <SignedIn>
-        <UserButton />
-      </SignedIn>
-      <SignedOut>
-        <Link href="/sign-in"> Sign In </Link>
-      </SignedOut>
+    <header className="flex justify-between p-2">
+      <h1>Title</h1>
+      <nav>
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
+        <SignedOut>
+          <Link href="/sign-in"> Sign In </Link>
+        </SignedOut>
+      </nav>
     </header>
   )
 }

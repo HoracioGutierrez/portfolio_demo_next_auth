@@ -15,13 +15,10 @@ export default function SignInForm() {
       password: data.password
     })
       .then((user) => {
-        console.log("then")
-        console.log(user)
         setSession(user.id)
         router.push("/dashboard")
       })
       .catch((error) => {
-        console.log("catch")
         console.log(error)
       })
   }
