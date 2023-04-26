@@ -7,16 +7,6 @@ import Link from "next/link"
 
 export default function Header() {
 
-  const { user } = useUser()
-  const router = useRouter()
-
-  useEffect(() => {
-    if (!user) {
-      router.push('/sign-in')
-    } 
-    
-  }, [user])
-
   const handleApi = async () => {
     const response = await fetch('/api/test')
     const data = await response.json()
