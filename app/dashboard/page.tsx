@@ -10,6 +10,6 @@ export default async function DashboardPage() {
   }
 
   return (
-    <UserProfile user={user} />
+    <UserProfile/>
   )
 }
