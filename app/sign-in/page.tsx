@@ -1,4 +1,4 @@
-import { currentUser , auth } from '@clerk/nextjs/app-beta';
+import { currentUser, auth } from '@clerk/nextjs/app-beta';
 import { redirect } from 'next/navigation';
 import SignInForm from './SignInForm';
 
@@ -6,13 +6,11 @@ export default async function SignIn() {
 
   const user = await currentUser();
 
-  if(user) {
+  if (user) {
     redirect('/dashboard');
   }
 
   return (
-    <div>
-      <SignInForm/>
-    </div>
+    <SignInForm />
   )
 }

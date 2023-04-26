@@ -16,7 +16,7 @@ export default function Header() {
   return (
     <header className="flex justify-between p-2">
       <h1>Title</h1>
-      <nav className="flex gap-2">
+      <nav className="flex gap-8">
         <Link href="/demos"> demos </Link>
         <button onClick={handleApi}>test api</button>
         <SignedIn>
