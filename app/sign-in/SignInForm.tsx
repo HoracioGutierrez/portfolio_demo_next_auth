@@ -2,6 +2,11 @@
 import { useForm } from "react-hook-form";
 import { useSignIn } from '@clerk/clerk-react';
 import { useRouter } from 'next/navigation';
+import { ActiveSessionResource , SignInResource } from "@clerk/types"
+
+interface User {
+  id: string | null | ActiveSessionResource
+}
 
 export default function SignInForm() {
 
@@ -14,8 +19,8 @@ export default function SignInForm() {
       identifier: data.email,
       password: data.password
     })
-      .then((user) => {
-        setSession(user.id)
+      .then((user : SignInResource) => {
+        setSession(user.id || null)
         router.push("/dashboard")
       })
       .catch((error) => {
