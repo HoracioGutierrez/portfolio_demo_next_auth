@@ -60,8 +60,8 @@ export default function SignInForm() {
 
   }
 
-  const toggleForm = () => {
-    setIsSignedIn(!isSignedIn)
+  const toggleForm = (mode: boolean) => {
+    setIsSignedIn(mode)
   }
 
   return (
@@ -78,8 +78,8 @@ export default function SignInForm() {
       <button type="submit">Sign {isSignedIn ? "In" : "Up"}</button>
 
       <div className="flex gap-4 justify-center">
-        <button type="button" className="text-blue-500" onClick={toggleForm}>No tengo una cuenta</button>
-        <button type="button" className="text-blue-500" onClick={toggleForm}>No tengo una cuenta</button>
+        <button type="button" className="text-blue-500" onClick={toggleForm.bind(null, false)}>No tengo una cuenta</button>
+        <button type="button" className="text-blue-500" onClick={toggleForm.bind(null, true)}>Ya tengo una cuenta</button>
       </div>
 
     </form >
