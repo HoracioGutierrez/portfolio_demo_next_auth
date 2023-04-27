@@ -1,24 +1,16 @@
 "use client"
 import { SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs/app-beta/client"
-import { useRouter } from 'next/navigation'
-import { useEffect } from "react"
 import Link from "next/link"
 
 
 export default function Header() {
 
-  const handleApi = async () => {
-    const response = await fetch('/api/test')
-    const data = await response.json()
-    console.log(data)
-  }
-
   return (
-    <header className="flex justify-between p-2">
-      <h1>Title</h1>
-      <nav className="flex gap-8">
+    <header className="flex justify-between p-2 md:p-3 lg:p-4">
+      <h1 className="text-3xl font-bold md:text-4xl lg:text-2xl">Custom Page</h1>
+      <nav className="gap-8 hidden sm:flex items-center">
         <Link href="/demos"> demos </Link>
-        <button onClick={handleApi}>test api</button>
+        <Link href="/opiniones"> opiniones </Link>
         <SignedIn>
           <UserButton />
         </SignedIn>

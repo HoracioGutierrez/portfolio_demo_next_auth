@@ -2,7 +2,7 @@
 import { useForm } from "react-hook-form";
 import { useSignIn, useSignUp } from '@clerk/clerk-react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { ActiveSessionResource, SignInResource } from "@clerk/types"
+import { SignInResource } from "@clerk/types"
 import { useState } from "react";
 
 export default function SignInForm() {
@@ -13,6 +13,7 @@ export default function SignInForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isSignedIn, setIsSignedIn] = useState(false)
+  const [requestError , setRequestError] = useState("")
 
   const onSubmit = (data: any) => {
     if (isSignedIn) {
@@ -35,7 +36,7 @@ export default function SignInForm() {
         router.push(url_path)
       })
       .catch((error) => {
-        console.log(error)
+        setRequestError(error.errors[0].message)
       })
   }
 
@@ -55,7 +56,7 @@ export default function SignInForm() {
         }
       })
       .catch((error) => {
-        console.log(error)
+        setRequestError(error.errors[0].message)
       })
 
   }
@@ -65,21 +66,22 @@ export default function SignInForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="grid w-full max-w-md items-center gap-4 m-auto">
+    <form onSubmit={handleSubmit(onSubmit)} className="grid w-full max-w-xs items-center gap-4 m-auto">
       <div className="flex flex-col">
         <label htmlFor="email">Email</label>
-        <input  {...register("email", { required: true })} placeholder="email@email.com" className="rounded-md border-2 border-gray-300 p-2" />
+        <input  {...register("email", { required: true })} placeholder="email@email.com" className="rounded-md border-2 border-gray-300 p-1 text-gray-800" />
       </div>
       <div className="flex flex-col">
         <label htmlFor="password">Password</label>
-        <input  {...register("password", { required: true })} className="rounded-md border-2 border-gray-300 p-2" />
+        <input  {...register("password", { required: true })} className="rounded-md border-2 border-gray-300 p-1 text-gray-800" placeholder="123456" type="password"/>
       </div>
       {(errors.email || errors.password) && <span className="text-red-500">This field is required</span>}
+      {requestError && <span className="text-red-500">{requestError}</span>}
       <button type="submit">Sign {isSignedIn ? "In" : "Up"}</button>
 
-      <div className="flex gap-4 justify-center">
-        <button type="button" className="text-blue-500" onClick={toggleForm.bind(null, false)}>No tengo una cuenta</button>
-        <button type="button" className="text-blue-500" onClick={toggleForm.bind(null, true)}>Ya tengo una cuenta</button>
+      <div className="flex gap-2 md:gap-4 md:justify-between mt-4 flex-col md:flex-row">
+        <button type="button" className={`text-blue-500 ${!isSignedIn && "text-gray-600"}`} onClick={toggleForm.bind(null, false)}>No tengo una cuenta</button>
+        <button type="button" className={`text-blue-500 ${isSignedIn && "text-gray-600"}`} onClick={toggleForm.bind(null, true)}>Ya tengo una cuenta</button>
       </div>
 
     </form >

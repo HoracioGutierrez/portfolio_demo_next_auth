@@ -15,12 +15,15 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+
   return (
     <ClerkProvider>
       <html lang="en">
         <body className="antialiased bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
-          <Header/>
-          {children}
+          <Header />
+          <main className="flex flex-col flex-1 p-2 md:p-3 lg:p-4">
+            {children}
+          </main>
         </body>
       </html>
     </ClerkProvider>
