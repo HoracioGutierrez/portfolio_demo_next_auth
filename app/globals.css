@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+@import 'material-icons/iconfont/material-icons.css';
 
 .cl-rootBox {
   width: 100%;
@@ -14,4 +15,8 @@
   box-shadow: none;
   margin: 0;
   max-width: unset;
+}
+
+svg.star-svg {
+  display: inline;
 }

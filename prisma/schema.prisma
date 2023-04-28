@@ -9,10 +9,11 @@ datasource db {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  posts Post[]
+  id       Int       @id @default(autoincrement())
+  email    String    @unique
+  name     String?
+  posts    Post[]
+  opinions Opinion[]
 }
 
 model Post {
@@ -22,4 +23,28 @@ model Post {
   published Boolean @default(false)
   authorId  Int
   author    User    @relation(fields: [authorId], references: [id])
+}
+
+enum Role {
+  CONTRATISTA
+  ADMIN
+  ALUMNO
+  PROFESOR
+  COORDINADOR
+  MANAGER
+}
+
+model Opinion {
+  id       Int     @id @default(autoincrement())
+  nombre   String
+  empresa  String?
+  opinion  String
+  rate     Float
+  fecha    String
+  verified Boolean @default(false)
+  link     String
+  avatar   String
+  tipo     Role    @default(ALUMNO)
+  authorId Int?
+  author   User?   @relation(fields: [authorId], references: [id])
 }
