@@ -8,6 +8,12 @@
   width: 100%;
 }
 
+.cl-userButtonPopoverCard.cl-card {
+  width: calc(100% - 2rem);
+  height: auto;
+  box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 0.2);
+}
+
 .cl-card {
   width: 100%;
   height: 100%;
@@ -17,6 +23,27 @@
   max-width: unset;
 }
 
+
+@media screen and (max-width: 1024px) {
+  .cl-userButtonPopoverCard.cl-card {
+    width: calc(100% - 1.5rem);
+  }
+}
+
+
+@media screen and (max-width: 767px) {
+  .cl-userButtonPopoverCard.cl-card {
+    width: calc(100% - 1rem);
+  }
+}
+
+
+  
+
 svg.star-svg {
   display: inline;
+}
+
+.cl-card>*:last-child {
+  display: none;
 }

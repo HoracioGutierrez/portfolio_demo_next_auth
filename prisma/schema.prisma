@@ -25,6 +25,23 @@ model Post {
   author    User    @relation(fields: [authorId], references: [id])
 }
 
+model Opinion {
+  id        Int      @id @default(autoincrement())
+  nombre    String
+  empresa   String?
+  opinion   String   @db.Text
+  rate      Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  verified  Boolean  @default(false)
+  link      String?
+  avatar    String?
+  tipo      Role     @default(ALUMNO)
+  email     String
+  authorId  Int?
+  author    User?    @relation(fields: [authorId], references: [id])
+}
+
 enum Role {
   CONTRATISTA
   ADMIN
@@ -32,19 +49,4 @@ enum Role {
   PROFESOR
   COORDINADOR
   MANAGER
-}
-
-model Opinion {
-  id       Int     @id @default(autoincrement())
-  nombre   String
-  empresa  String?
-  opinion  String
-  rate     Float
-  fecha    String
-  verified Boolean @default(false)
-  link     String
-  avatar   String
-  tipo     Role    @default(ALUMNO)
-  authorId Int?
-  author   User?   @relation(fields: [authorId], references: [id])
 }
