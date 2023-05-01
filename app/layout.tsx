@@ -24,9 +24,9 @@ export default function RootLayout({
         <body className="antialiased bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
           <div className='drawer'>
             <input id="drawer-toggle" type="checkbox" className="drawer-toggle" />
-            <div className="drawer-content">
+            <div className="drawer-content flex flex-col">
               <Header />
-              <main className="flex flex-col flex-1 p-2 md:p-3 lg:p-4">
+              <main className="flex flex-col flex-grow flex-1 p-2 md:p-3 lg:p-4">
                 {children}
               </main>
             </div>
