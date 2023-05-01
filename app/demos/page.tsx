@@ -9,7 +9,7 @@ export default function Demos() {
   return (
     <section>
       <h2 className="font-semibold text-xl mb-4">Demos</h2>
-      <div className="lg:flex hero">
+      <div className="lg:grid hero">
         <div className="hero-overlay bg-opacity-60"></div>
         <div className="hero-content text-center flex flex-col">
           <p>Esta seccion esta todavia bajo construccion. La idea es ir dejando alguno de los trabajos que fui haciendo durante todo este tiempo que estuve cerca del mundo de la programacion.</p>
