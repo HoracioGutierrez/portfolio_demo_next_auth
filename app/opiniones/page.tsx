@@ -8,6 +8,11 @@ async function getOpiniones() {
   return data
 }
 
+export const metadata = {
+  title: 'HG - Opiniones',
+  description: 'Horacio Gutierrez - Opiniones de los clientes del programador fullstack Horacio Gutierrez'
+}
+
 
 interface Opinion {
   nombre: string,

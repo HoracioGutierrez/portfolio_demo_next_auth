@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Rating } from "react-simple-star-rating";
 import { useUser } from "@clerk/nextjs/app-beta/client";
+import { toast } from "react-toastify";
 
 export default function NuevaOpinion() {
 
@@ -17,6 +18,8 @@ export default function NuevaOpinion() {
       rate: rating
     }
 
+    toast.info("Enviando opinion...")
+
     fetch("/api/opiniones", {
       method: "POST",
       body: JSON.stringify(opinion),
@@ -25,8 +28,12 @@ export default function NuevaOpinion() {
       }
     })
       .then(res => res.json())
-      .then(data => {
-        console.log(data)
+      .then(() => {
+        toast.dismiss()
+        toast.success("Tu opinion ha sido enviada")
+      })
+      .catch(err => {
+        toast.error("Hubo un error al enviar tu opinion")
       })
 
   }
