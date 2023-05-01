@@ -4,6 +4,7 @@ import { useSignIn, useSignUp } from '@clerk/clerk-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { SignInResource } from "@clerk/types"
 import { useState } from "react";
+import { toast } from "react-toastify"
 
 export default function SignInForm() {
 
@@ -13,17 +14,18 @@ export default function SignInForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isSignedIn, setIsSignedIn] = useState(false)
-  const [requestError , setRequestError] = useState("")
+  const [requestError, setRequestError] = useState("")
 
   const onSubmit = (data: any) => {
     if (isSignedIn) {
       customSignIn(data.email, data.password)
     } else {
-      customSignUp(data.email, data.password)
+      customSignUp(data.email, data.password, data.username)
     }
   }
 
   const customSignIn = (identifier: string, password: string) => {
+    toast.info("Iniciando sesion...")
     signIn?.create({
       identifier,
       password
@@ -40,19 +42,28 @@ export default function SignInForm() {
       })
   }
 
-  const customSignUp = (emailAddress: string, password: string) => {
-
+  const customSignUp = (emailAddress: string, password: string, username: string) => {
+    toast.info("Creando cuenta...")
     signUp?.create({
       emailAddress,
-      password
+      password,
+      username
     })
       .then((result) => {
         if (result.status === "complete") {
           if (setActive) {
             setActive({ session: result.createdSessionId });
+            router.push("/dashboard")
+            toast.dismiss()
+            toast.success("Cuenta creada exitosamente")
+            return
           }
-        } else {
-          console.log(result);
+          return
+        }
+
+        if (result.status === "missing_requirements") {
+          setRequestError(`Missing requirements: ${result.missingFields.join(", ")}`)
+          return
         }
       })
       .catch((error) => {
@@ -68,12 +79,17 @@ export default function SignInForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="grid w-full max-w-xs items-center gap-4 m-auto">
       <div className="flex flex-col">
-        <label htmlFor="email">Email</label>
+        <label htmlFor="email">{isSignedIn ? "Email/Username" : "Email Address"}</label>
         <input  {...register("email", { required: true })} placeholder="email@email.com" className="rounded-md border-2 border-gray-300 p-1 text-gray-800" />
       </div>
+
+      {!isSignedIn && <div className="flex flex-col">
+        <label htmlFor="username">Nombre de Usuario</label>
+        <input  {...register("username", { required: true })} className="rounded-md border-2 border-gray-300 p-1 text-gray-800" placeholder="123456" type="text" />
+      </div>}
       <div className="flex flex-col">
         <label htmlFor="password">Password</label>
-        <input  {...register("password", { required: true })} className="rounded-md border-2 border-gray-300 p-1 text-gray-800" placeholder="123456" type="password"/>
+        <input  {...register("password", { required: true })} className="rounded-md border-2 border-gray-300 p-1 text-gray-800" placeholder="123456" type="password" />
       </div>
       {(errors.email || errors.password) && <span className="text-red-500">This field is required</span>}
       {requestError && <span className="text-red-500">{requestError}</span>}
